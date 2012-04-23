@@ -1,4 +1,4 @@
-package org.ashtonk.plugins;
+package com.github.ashtonkem;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
