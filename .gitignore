@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+# Maven and Eclipse related ignores #
+target
+.classpath
+.settings
+.project
