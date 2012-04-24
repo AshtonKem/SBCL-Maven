@@ -1,6 +1,7 @@
-package com.github.ashtonkem;
+package com.github.ashtonkem.configuration;
 
 import java.io.File;
+import java.util.Collection;
 
 
 /**
@@ -42,5 +43,11 @@ public interface SourceLayout {
 	 * @return Directory where .fasl files will be stored.
 	 */
 	public File faslDir();
+	
+	/**
+	 * 
+	 * @return A collection of .asd files.
+	 */
+	public Collection<File> asdFiles();
 
 }

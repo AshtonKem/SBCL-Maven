@@ -1,7 +1,13 @@
-package com.github.ashtonkem;
+package com.github.ashtonkem.configuration;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.project.MavenProject;
+
 
 /**
  * Represents the standard lisp project layout. Files will be located as such:
@@ -46,6 +52,15 @@ public class StandardLayout implements SourceLayout {
 	
 	public File faslDir() {
 		return new File(base, "target/fasl");
+	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<File> asdFiles() {
+		Iterator<File> iter = FileUtils.iterateFiles(base, new String[] {"asd"}, true);
+		Collection<File> collector = new LinkedList<File>();
+		while (iter.hasNext())
+			collector.add(iter.next());
+		return collector;
 	}
 
 }
