@@ -13,6 +13,8 @@ public class SBCLCommand implements LispCommand{
 	private Collection<String> expressions;
 	@SuppressWarnings("unused")
 	private SourceLayout layout;
+	private String coreName;
+	private String mainPackage;
 	
 	public SBCLCommand()
 	{
@@ -41,11 +43,24 @@ public class SBCLCommand implements LispCommand{
 			command += "\n";
 			command += s;
 		}
+		for (File f : layout.asdFiles()) 
+		{
+			if (f.exists())
+			{
+				command += "(pushnew (truename \"" + f.getParent() + "\") asdf::*central-registry*)\n";
+			}
+		}
+		command += "(require :" + mainPackage + ")\n";
+		command += "(sb-ext:save-lisp-and-die \"target/" + coreName + "\" :executable t)";
 		command += ")";
 		return command;
 	}
 	public void setCoreName(String s) {
-		// TODO Auto-generated method stub
+		coreName = s;
+		
+	}
+	public void setMainPackage(String s) {
+		mainPackage = s;
 		
 	}
 

@@ -15,5 +15,7 @@ public interface LispCommand {
 	
 	void setCoreName(String s);
 	
+	void setMainPackage(String s);
+	
 	String getCommand();
 }

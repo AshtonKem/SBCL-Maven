@@ -33,6 +33,13 @@ public class Compiler extends AbstractMojo {
 	 * @parameter default-value="${project}"
 	 */
 	private MavenProject project;
+	
+	/**
+	 * @parameter exprsesion="${mainPackage}"
+	 * @required
+	 */
+	private String mainPackage;
+	
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
@@ -40,10 +47,10 @@ public class Compiler extends AbstractMojo {
 		LispCommand command = new SBCLCommand();
 		command.setLayout(layout);
 		command.addExpression("(sb-ext:disable-debugger)");
-		command.addExpression("(error \"Hello\")");
+		//command.addExpression("(error \"Hello\")");
 		command.setCoreName(coreName);
-		getLog().info("Lisp eval: " + command.getCommand());
-		ProcessBuilder builder = new ProcessBuilder("sbcl", "--eval",
+		command.setMainPackage(mainPackage);
+		ProcessBuilder builder = new ProcessBuilder("sbcl", "--eval", "(require :asdf)", "--eval",
 				command.getCommand());
 		builder.redirectErrorStream(true);
 		Process proc;
