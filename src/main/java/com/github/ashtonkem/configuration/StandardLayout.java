@@ -53,14 +53,22 @@ public class StandardLayout implements SourceLayout {
 	public File faslDir() {
 		return new File(base, "target/fasl");
 	}
-
-	@SuppressWarnings("unchecked")
-	public Collection<File> asdFiles() {
-		Iterator<File> iter = FileUtils.iterateFiles(base, new String[] {"asd"}, true);
+	
+	private Collection<File> searchDirectory(File dir)
+	{
+		@SuppressWarnings("unchecked")
+		Iterator<File> iter = FileUtils.iterateFiles(dir, new String[] {"asd"}, true);
 		Collection<File> collector = new LinkedList<File>();
 		while (iter.hasNext())
 			collector.add(iter.next());
 		return collector;
+	}
+
+
+	public Collection<File> asdFiles() {
+		Collection<File> results = searchDirectory(lib());
+		results.addAll(searchDirectory(src()));
+		return results;
 	}
 
 }
