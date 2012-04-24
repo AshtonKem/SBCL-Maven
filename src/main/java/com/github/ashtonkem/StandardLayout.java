@@ -43,5 +43,9 @@ public class StandardLayout implements SourceLayout {
 	public File test() {
 		return new File(base, "test/lisp");
 	}
+	
+	public File faslDir() {
+		return new File(base, "target/fasl");
+	}
 
 }

@@ -37,6 +37,10 @@ public interface SourceLayout {
 	 */
 	public File test();
 	
-
+	/**
+	 * 
+	 * @return Directory where .fasl files will be stored.
+	 */
+	public File faslDir();
 
 }
