@@ -11,7 +11,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
 import com.github.ashtonkem.command.LispCommand;
-import com.github.ashtonkem.command.StandardCommand;
+import com.github.ashtonkem.command.SBCLCommand;
 import com.github.ashtonkem.configuration.SourceLayout;
 import com.github.ashtonkem.configuration.StandardLayout;
 
@@ -37,7 +37,7 @@ public class Compiler extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
 		SourceLayout layout = new StandardLayout(project);
-		LispCommand command = new StandardCommand();
+		LispCommand command = new SBCLCommand();
 		command.setLayout(layout);
 		command.addExpression("(sb-ext:disable-debugger)");
 		command.addExpression("(error \"Hello\")");

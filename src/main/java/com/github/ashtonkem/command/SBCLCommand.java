@@ -8,13 +8,13 @@ import java.util.LinkedList;
 import com.github.ashtonkem.configuration.SourceLayout;
 
 
-public class StandardCommand implements LispCommand{
+public class SBCLCommand implements LispCommand{
 
 	private Collection<String> expressions;
 	@SuppressWarnings("unused")
 	private SourceLayout layout;
 	
-	public StandardCommand()
+	public SBCLCommand()
 	{
 		expressions = new LinkedList<String>();
 	}
