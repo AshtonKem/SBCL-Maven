@@ -17,5 +17,7 @@ public interface LispCommand {
 	
 	void setMainPackage(String s);
 	
+	void packageResult(boolean t);
+	
 	String getCommand();
 }
