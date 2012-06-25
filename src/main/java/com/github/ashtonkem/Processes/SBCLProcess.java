@@ -1,6 +1,5 @@
 package com.github.ashtonkem.Processes;
 
-import com.github.ashtonkem.command.LispCommand;
 
 public class SBCLProcess extends LispProcess {
 
