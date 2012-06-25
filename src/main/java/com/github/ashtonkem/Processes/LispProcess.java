@@ -47,6 +47,8 @@ public abstract class LispProcess {
 							bw.flush();
 						}
 					}
+					if (c.finalCommand())
+						break;
 				}
 				while ((line = br.readLine()) != null) {
 					System.out.println(line);
