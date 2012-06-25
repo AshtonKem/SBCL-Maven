@@ -19,6 +19,4 @@ public interface LispCommand extends Iterable<String> {
 	void setCoreName(String s);
 	
 	void setMainPackage(String s);
-	
-	void packageResult(boolean t);
 }
