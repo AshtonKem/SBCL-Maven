@@ -1,17 +1,21 @@
 package com.github.ashtonkem.Processes;
 
+import java.io.IOException;
+
 
 public class SBCLProcess extends LispProcess {
 
-
-
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
+		try {
+			writer.write("(quit)\n");
+			writer.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
-
-
 
 	@Override
 	protected String getExecutableName() {
