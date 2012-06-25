@@ -1,9 +1,11 @@
 package com.github.ashtonkem.Processes;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import com.github.ashtonkem.command.LispCommand;
@@ -18,6 +20,7 @@ import com.github.ashtonkem.command.LispCommand;
  */
 public abstract class LispProcess {
 	protected Process process;
+	protected String output = "";
 	
 	protected ArrayList<LispCommand> commands = new ArrayList<LispCommand>();
 	public LispProcess() {
@@ -31,19 +34,13 @@ public abstract class LispProcess {
 			process = builder.start();
 			InputStream is = process.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String line;
-			int exit = -1;
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+			String line;		
 			try {
 				while ((line = br.readLine()) != null) {
+					output = output + "\n" + line;
+					// For debugging purposes;
 					System.out.println(line);
-					try {
-						exit = process.exitValue();
-						if (exit == 0)
-							System.out.println("Exited");
-
-					} catch (IllegalThreadStateException t) {
-
-					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -54,9 +51,17 @@ public abstract class LispProcess {
 			e.printStackTrace();
 		}
 	}
-	public abstract String getOutput();
+	public String getOutput()
+	{
+		String temp = output;
+		output = "";
+		return temp;
+	}
 	public abstract void stop();
-	public abstract void addCommand(LispCommand c);
+	public void addCommand(LispCommand c)
+	{
+		commands.add(c);
+	}
 	public boolean running()
 	{
 		try {
