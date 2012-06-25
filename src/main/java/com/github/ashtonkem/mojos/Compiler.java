@@ -1,6 +1,8 @@
 package com.github.ashtonkem.mojos;
 
 
+import java.io.File;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -34,6 +36,8 @@ public class Compiler extends AbstractMojo {
 	
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		File f = new File ("target");
+		f.mkdir();
 		SBCLProcess process = new SBCLProcess();
 		SourceLayout layout = new StandardLayout(project);
 		LispCommand command = new SBCLCommand(true);
