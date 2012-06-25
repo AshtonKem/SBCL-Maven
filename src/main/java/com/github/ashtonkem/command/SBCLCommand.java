@@ -10,9 +10,7 @@ import com.github.ashtonkem.configuration.SourceLayout;
 public class SBCLCommand implements LispCommand {
 
 	private Collection<String> expressions;
-	private String coreName;
-	private String mainPackage;
-	private boolean packageResult;
+
 
 	public SBCLCommand() {
 		expressions = new LinkedList<String>();
