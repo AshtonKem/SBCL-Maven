@@ -1,0 +1,19 @@
+<component-set>
+	<components>
+		<component>
+			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+			<role-hint>sbcl</role-hint>
+			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
+			</implementation>
+			<configuration>
+				<lifecycles>
+					<lifecycle>
+						<id>default</id><phases>
+							<compile>com.github.ashtonkem:sbcl-maven-plugin:compile-lisp</compile>
+						</phases>
+						</lifecycle>
+				</lifecycles>
+			</configuration>
+		</component>
+	</components>
+</component-set>
