@@ -46,12 +46,12 @@ public class SBCLCommand implements LispCommand {
 	}
 
 	public void setCoreName(String s) {
-		coreName = s;
+		addExpression("(sb-ext:save-lisp-and-die " + s + ")");
 
 	}
 
 	public void setMainPackage(String s) {
-		mainPackage = s;
+		addExpression("(require :" + s + ")");
 
 	}
 
