@@ -52,10 +52,9 @@ public abstract class LispProcess {
 					if (c.finalCommand())
 						break;
 				}
-				readIO:
-				if ((line = reader.readLine()) != null) {
+				
+				while ((line = reader.readLine()) != null) {
 					System.out.println(line);
-					break readIO;
 				}
 				this.stop();
 
