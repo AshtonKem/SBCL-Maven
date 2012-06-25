@@ -10,38 +10,52 @@ import java.util.ArrayList;
 
 import com.github.ashtonkem.command.LispCommand;
 
-
 /***
- * Abstract class designed to cover all of the behavior for a Lisp Process. 
- * It will contain a reference to the external Process, and accept a series of LispCommand objects
- * to execute. It will also queue up all output internally.
+ * Abstract class designed to cover all of the behavior for a Lisp Process. It
+ * will contain a reference to the external Process, and accept a series of
+ * LispCommand objects to execute. It will also queue up all output internally.
+ * 
  * @author ashtonkemerling
- *
+ * 
  */
 public abstract class LispProcess {
 	protected Process process;
 	protected String output = "";
-	
+
 	protected ArrayList<LispCommand> commands = new ArrayList<LispCommand>();
+
 	public LispProcess() {
-		
+
 	}
-	
-	public  void start()
-	{
+
+	public void start() {
 		ProcessBuilder builder = new ProcessBuilder(this.getExecutableName());
 		try {
+			builder.redirectErrorStream(true);
 			process = builder.start();
-			InputStream is = process.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-			String line;		
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					process.getInputStream()));
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+					process.getOutputStream()));
+			String line;
 			try {
+				for (LispCommand c : commands) {
+					for (String exp : c) {
+						if (this.running())
+						{
+							bw.write(exp);
+							bw.write('\n');
+							bw.flush();
+						}
+					}
+				}
 				while ((line = br.readLine()) != null) {
+
 					output = output + "\n" + line;
 					// For debugging purposes;
 					System.out.println(line);
 				}
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -51,28 +65,28 @@ public abstract class LispProcess {
 			e.printStackTrace();
 		}
 	}
-	public String getOutput()
-	{
+
+	public String getOutput() {
 		String temp = output;
 		output = "";
 		return temp;
 	}
+
 	public abstract void stop();
-	public void addCommand(LispCommand c)
-	{
+
+	public void addCommand(LispCommand c) {
 		commands.add(c);
 	}
-	public boolean running()
-	{
+
+	public boolean running() {
 		try {
 			process.exitValue();
 			return false;
-		} catch (IllegalThreadStateException e)
-		{
+		} catch (IllegalThreadStateException e) {
 			return true;
 		}
 	}
-	protected abstract String getExecutableName();
 
+	protected abstract String getExecutableName();
 
 }
