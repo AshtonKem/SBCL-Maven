@@ -53,10 +53,6 @@ public class SBCLCommand implements LispCommand {
 
 	}
 
-	public void packageResult(boolean t) {
-		packageResult = t;
-
-	}
 
 	public Iterator<String> iterator() {
 		// TODO Auto-generated method stub
