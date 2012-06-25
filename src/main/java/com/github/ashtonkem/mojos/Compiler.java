@@ -53,45 +53,7 @@ public class Compiler extends AbstractMojo {
 		process.addCommand(command);
 		process.start();
 		
-		/*
-		SourceLayout layout = new StandardLayout(project);
-		LispCommand command = new SBCLCommand();
-		command.setLayout(layout);
-		command.addExpression("(sb-ext:disable-debugger)");
-		//command.addExpression("(error \"Hello\")");
-		command.setCoreName(coreName);
-		command.setMainPackage(mainPackage);
-		ProcessBuilder builder = new ProcessBuilder("sbcl", "--eval", "(require :asdf)", "--eval",
-				command.getCommand());
-		builder.redirectErrorStream(true);
-		Process proc;
-		try {
-			proc = builder.start();
-			InputStream is = proc.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String line;
-			int exit = -1;
-			try {
-				while ((line = br.readLine()) != null) {
-					System.out.println(line);
-					try {
-						exit = proc.exitValue();
-						if (exit == 0)
-							System.out.println("Exited");
-
-					} catch (IllegalThreadStateException t) {
-
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
-
+		
 	}
 
 }
