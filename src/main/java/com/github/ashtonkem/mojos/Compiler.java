@@ -46,10 +46,9 @@ public class Compiler extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		SBCLProcess process = new SBCLProcess();
 		SourceLayout layout = new StandardLayout(project);
-		LispCommand command = new SBCLCommand();
+		LispCommand command = new SBCLCommand(true);
 		command.setLayout(layout);
 		command.setMainPackage(mainPackage);
-		command.setCoreName(coreName);
 		process.addCommand(command);
 		process.start();
 		

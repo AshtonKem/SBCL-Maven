@@ -6,17 +6,29 @@ import java.util.Iterator;
 import com.github.ashtonkem.configuration.SourceLayout;
 
 
-public interface LispCommand extends Iterable<String> {
+public abstract class LispCommand implements Iterable<String> {
 	
-	void addExpression(String exp);
+	protected boolean finalize;
 	
-	void addPackage(File f);
+	public LispCommand(boolean finalCommand)
+	{
+		this.finalize = finalCommand;
+	}
 	
-	void addPackage(String s);
+	public boolean finalCommand() 
+	{
+		return finalize;
+	}
 	
-	void setLayout(SourceLayout layout);
+	public abstract void addExpression(String exp);
 	
-	void setCoreName(String s);
+	public abstract void addPackage(File f);
 	
-	void setMainPackage(String s);
+	public abstract void addPackage(String s);
+	
+	public abstract void setLayout(SourceLayout layout);
+	
+	public abstract void setCoreName(String s);
+	
+	public abstract void setMainPackage(String s);
 }

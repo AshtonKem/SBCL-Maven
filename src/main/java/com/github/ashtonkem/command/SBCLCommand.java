@@ -7,12 +7,13 @@ import java.util.LinkedList;
 
 import com.github.ashtonkem.configuration.SourceLayout;
 
-public class SBCLCommand implements LispCommand {
+public class SBCLCommand extends LispCommand {
 
 	private Collection<String> expressions;
 
 
-	public SBCLCommand() {
+	public SBCLCommand(boolean Finalize) {
+		super(Finalize);
 		expressions = new LinkedList<String>();
 		this.addExpression("(require :asdf)");
 	}
