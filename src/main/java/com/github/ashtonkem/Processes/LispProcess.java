@@ -20,7 +20,6 @@ import com.github.ashtonkem.command.LispCommand;
  */
 public abstract class LispProcess {
 	protected Process process;
-	protected String output = "";
 
 	protected ArrayList<LispCommand> commands = new ArrayList<LispCommand>();
 
@@ -50,9 +49,6 @@ public abstract class LispProcess {
 					}
 				}
 				while ((line = br.readLine()) != null) {
-
-					output = output + "\n" + line;
-					// For debugging purposes;
 					System.out.println(line);
 				}
 
@@ -66,11 +62,6 @@ public abstract class LispProcess {
 		}
 	}
 
-	public String getOutput() {
-		String temp = output;
-		output = "";
-		return temp;
-	}
 
 	public abstract void stop();
 
