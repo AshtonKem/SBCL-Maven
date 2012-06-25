@@ -52,7 +52,22 @@ public abstract class LispProcess {
 					if (c.finalCommand())
 						break;
 				}
-				
+				while (true) {
+					line = reader.readLine();
+					if (line == null)
+					{
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						line = reader.readLine();
+						if (line == null)
+							break;
+					}
+					System.out.println(line);
+				}
 				while ((line = reader.readLine()) != null) {
 					System.out.println(line);
 				}
