@@ -19,7 +19,6 @@ import com.github.ashtonkem.command.LispCommand;
  */
 public abstract class LispProcess {
 	protected Process process;
-	protected BufferedReader reader;
 	protected BufferedWriter writer;
 
 	protected ArrayList<LispCommand> commands = new ArrayList<LispCommand>();
@@ -37,7 +36,8 @@ public abstract class LispProcess {
 					process.getInputStream()));
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					process.getOutputStream()));
-			String line;
+			OutputListener listener = new OutputListener(process);
+			new Thread(listener).start();
 			try {
 				for (LispCommand c : commands) {
 					for (String exp : c) {
@@ -51,26 +51,7 @@ public abstract class LispProcess {
 					if (c.finalCommand())
 						break;
 				}
-				while (true) {
-					line = reader.readLine();
-					if (line == null)
-					{
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						line = reader.readLine();
-						if (line == null)
-							break;
-					}
-					System.out.println(line);
-				}
-				while ((line = reader.readLine()) != null) {
-					System.out.println(line);
-				}
-				this.stop();
+				//this.stop();
 
 			} catch (IOException e) {
 				e.printStackTrace();
