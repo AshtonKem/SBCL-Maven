@@ -45,22 +45,6 @@ public class SBCLCommand implements LispCommand {
 		
 	}
 
-	public String getCommand() {
-		String command = "(progn";
-		for (String s : expressions) {
-			command += "\n";
-			command += s;
-		}
-		command += "(list :output-translations :disable-cache :ignore-inherited-configuration (list *home* (merge-pathnames \"target/fasl/**/*.*\" *home*))";
-		command += "(require :" + mainPackage + ")\n";
-		if (packageResult) {
-			command += "(sb-ext:save-lisp-and-die \"target/" + coreName
-					+ "\" :executable t)";
-		}
-		command += ")";
-		return command;
-	}
-
 	public void setCoreName(String s) {
 		coreName = s;
 
