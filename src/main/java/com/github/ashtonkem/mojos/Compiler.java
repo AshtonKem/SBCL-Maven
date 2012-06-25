@@ -10,6 +10,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
+import com.github.ashtonkem.Processes.SBCLProcess;
 import com.github.ashtonkem.command.LispCommand;
 import com.github.ashtonkem.command.SBCLCommand;
 import com.github.ashtonkem.configuration.SourceLayout;
@@ -26,7 +27,7 @@ public class Compiler extends AbstractMojo {
 	/**
 	 * Name of the final .core file produce by SBCL.
 	 * 
-	 * @parameter expression="${coreName}" default-value="compile.core"
+	 * @parameter expression="${coreName}" default-value="${project}.core"
 	 */
 	private String coreName;
 
@@ -43,7 +44,16 @@ public class Compiler extends AbstractMojo {
 	
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-
+		SBCLProcess process = new SBCLProcess();
+		SourceLayout layout = new StandardLayout(project);
+		LispCommand command = new SBCLCommand();
+		command.setLayout(layout);
+		command.setMainPackage(mainPackage);
+		command.setCoreName(coreName);
+		process.addCommand(command);
+		process.start();
+		
+		/*
 		SourceLayout layout = new StandardLayout(project);
 		LispCommand command = new SBCLCommand();
 		command.setLayout(layout);
@@ -80,7 +90,7 @@ public class Compiler extends AbstractMojo {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} */
 
 	}
 
