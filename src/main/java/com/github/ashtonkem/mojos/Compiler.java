@@ -20,12 +20,6 @@ import com.github.ashtonkem.configuration.StandardLayout;
  * @lifecycle compile
  */
 public class Compiler extends AbstractMojo {
-	/**
-	 * Name of the final .core file produce by SBCL.
-	 * 
-	 * @parameter expression="${coreName}" default-value="${project}.core"
-	 */
-	private String coreName;
 
 	/**
 	 * @parameter default-value="${project}"
