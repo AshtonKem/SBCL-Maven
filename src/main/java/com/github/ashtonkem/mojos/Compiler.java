@@ -19,7 +19,8 @@ import com.github.ashtonkem.configuration.StandardLayout;
 /**
  * 
  * @author ashtonkemerling
- * @goal compile-lisp
+ * @goal compile
+ * @lifecycle compile
  */
 public class Compiler extends AbstractMojo {
 	/**

@@ -8,10 +8,11 @@
 			<configuration>
 				<lifecycles>
 					<lifecycle>
-						<id>default</id><phases>
-							<compile>com.github.ashtonkem:sbcl-maven-plugin:compile-lisp</compile>
+						<id>default</id>
+						<phases>
+							<compile>com.github.ashtonkem:sbcl-maven-plugin:compile</compile>
 						</phases>
-						</lifecycle>
+					</lifecycle>
 				</lifecycles>
 			</configuration>
 		</component>
