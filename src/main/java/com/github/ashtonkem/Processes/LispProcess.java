@@ -20,6 +20,8 @@ import com.github.ashtonkem.command.LispCommand;
  */
 public abstract class LispProcess {
 	protected Process process;
+	protected BufferedReader reader;
+	protected BufferedWriter writer;
 
 	protected ArrayList<LispCommand> commands = new ArrayList<LispCommand>();
 
@@ -32,9 +34,9 @@ public abstract class LispProcess {
 		try {
 			builder.redirectErrorStream(true);
 			process = builder.start();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					process.getInputStream()));
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 					process.getOutputStream()));
 			String line;
 			try {
@@ -42,17 +44,20 @@ public abstract class LispProcess {
 					for (String exp : c) {
 						if (this.running())
 						{
-							bw.write(exp);
-							bw.write('\n');
-							bw.flush();
+							writer.write(exp);
+							writer.write('\n');
+							writer.flush();
 						}
 					}
 					if (c.finalCommand())
 						break;
 				}
-				while ((line = br.readLine()) != null) {
+				readIO:
+				if ((line = reader.readLine()) != null) {
 					System.out.println(line);
+					break readIO;
 				}
+				this.stop();
 
 			} catch (IOException e) {
 				e.printStackTrace();
