@@ -1,7 +1,6 @@
 package com.github.ashtonkem.command;
 
 import java.io.File;
-import java.util.Iterator;
 
 import com.github.ashtonkem.configuration.SourceLayout;
 

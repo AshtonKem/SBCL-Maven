@@ -15,6 +15,9 @@ public class SBCLCommand extends LispCommand {
 	public SBCLCommand(boolean Finalize) {
 		super(Finalize);
 		expressions = new LinkedList<String>();
+		//Disabling the debugger prevents the SBCL process from spewing stacktraces to STDOUT waiting for console
+		// response.
+		this.addExpression("(sb-ext:disable-debugger)");
 		this.addExpression("(require :asdf)");
 	}
 

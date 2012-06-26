@@ -30,12 +30,5 @@ public class OutputListener implements Runnable {
 
 	}
 
-	private boolean alive() {
-		try {
-			process.exitValue();
-			return false;
-		} catch (IllegalThreadStateException e) {
-			return true;
-		}
-	}
+	
 }
