@@ -18,7 +18,13 @@ public class SBCLCommand extends LispCommand {
 		//Disabling the debugger prevents the SBCL process from spewing stacktraces to STDOUT waiting for console
 		// response.
 		this.addExpression("(sb-ext:disable-debugger)");
+		
 		this.addExpression("(require :asdf)");
+		String asdfInit = "";
+		asdfInit += "(asdf:initialize-output-translations ";
+		asdfInit += "(list :output-translations :disable-cache :ignore-inherited-configuration ";
+		asdfInit += "(list *default-pathname-defaults* (merge-pathnames \"target/fasl/**/*.*\" *default-pathname-defaults*))))";
+		this.addExpression(asdfInit);
 	}
 
 	public void addExpression(String exp) {
