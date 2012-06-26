@@ -10,7 +10,11 @@ public class SBCLProcess extends LispProcess {
 		try {
 			writer.write("(quit)\n");
 			writer.flush();
+			process.waitFor();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

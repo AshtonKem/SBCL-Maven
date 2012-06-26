@@ -32,9 +32,7 @@ public abstract class LispProcess {
 		try {
 			builder.redirectErrorStream(true);
 			process = builder.start();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					process.getInputStream()));
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+			writer = new BufferedWriter(new OutputStreamWriter(
 					process.getOutputStream()));
 			OutputListener listener = new OutputListener(process);
 			new Thread(listener).start();
@@ -51,7 +49,7 @@ public abstract class LispProcess {
 					if (c.finalCommand())
 						break;
 				}
-				//this.stop();
+				this.stop();
 
 			} catch (IOException e) {
 				e.printStackTrace();
