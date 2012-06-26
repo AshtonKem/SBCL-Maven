@@ -29,7 +29,7 @@ public class Compiler extends AbstractMojo {
 	private MavenProject project;
 	
 	/**
-	 * @parameter exprsesion="${mainPackage}"
+	 * @parameter expression="${mainPackage}"
 	 * @required
 	 */
 	private String mainPackage;
