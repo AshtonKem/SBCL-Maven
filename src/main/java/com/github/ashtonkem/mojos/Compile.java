@@ -21,7 +21,7 @@ import com.github.ashtonkem.configuration.StandardLayout;
  * @goal compile
  * @lifecycle compile
  */
-public class Compiler extends AbstractMojo {
+public class Compile extends AbstractMojo {
 
 	/**
 	 * @parameter default-value="${project}"
