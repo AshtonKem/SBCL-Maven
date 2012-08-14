@@ -54,7 +54,7 @@ public class SBCLCommand extends LispCommand {
 	}
 
 	public void setCoreName(String s) {
-		addExpression("(sb-ext:save-lisp-and-die " + s + ")");
+		addExpression("(sb-ext:save-lisp-and-die \"target/" + s + ".core\" :executable t)");
 
 	}
 
