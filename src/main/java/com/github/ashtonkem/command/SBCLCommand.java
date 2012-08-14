@@ -17,13 +17,13 @@ public class SBCLCommand extends LispCommand {
 		expressions = new LinkedList<String>();
 		//Disabling the debugger prevents the SBCL process from spewing stacktraces to STDOUT waiting for console
 		// response.
-		this.addExpression("(sb-ext:disable-debugger)");
-		
+		this.addExpression("(sb-ext:disable-debugger)");		
 		this.addExpression("(require :asdf)");
+		this.addExpression("(defun to-string (arg) (format nil \"~A\" arg))");
 		String asdfInit = "";
-		asdfInit += "(asdf:initialize-output-translations ";
+		asdfInit += "(funcall 'asdf::initialize-output-translations ";
 		asdfInit += "(list :output-translations :disable-cache :ignore-inherited-configuration ";
-		asdfInit += "(list *default-pathname-defaults* (merge-pathnames \"target/fasl/**/*.*\" *default-pathname-defaults*))))";
+		asdfInit += "(list (to-string *default-pathname-defaults*) (merge-pathnames \"target/fasl/**/*.*\" (to-string *default-pathname-defaults*)))))";
 		this.addExpression(asdfInit);
 	}
 
@@ -59,7 +59,7 @@ public class SBCLCommand extends LispCommand {
 	}
 
 	public void setMainPackage(String s) {
-		addExpression("(require :" + s + ")");
+		addExpression("(asdf:operate 'asdf:load-op :" + s + " :verbose nil)");
 
 	}
 
