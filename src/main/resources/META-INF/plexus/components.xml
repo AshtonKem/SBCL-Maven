@@ -12,10 +12,10 @@
 						<id>default</id>
 						<phases>
 							<compile>
-								com.github.ashtonkem:sbcl-maven-plugin:compile
+								com.github.ashtonkem:sbcl-maven-plugin:compile-sbcl
 							</compile>
 							<package>
-								com.github.ashtonkem:sbcl-maven-plugin:package
+								com.github.ashtonkem:sbcl-maven-plugin:package-sbcl
 							</package>
 						</phases>
 					</lifecycle>
