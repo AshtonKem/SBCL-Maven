@@ -1,6 +1,5 @@
 package com.github.ashtonkem.mojos;
 
-
 import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -14,15 +13,14 @@ import com.github.ashtonkem.command.SBCLCommand;
 import com.github.ashtonkem.configuration.SourceLayout;
 import com.github.ashtonkem.configuration.StandardLayout;
 
-
 /**
  * 
  * @author ashtonkemerling
- * @goal compile
- * @lifecycle compile
+ * @phase package
+ * @goal package
  */
-public class Compile extends AbstractMojo {
-
+public class SBCLPackagerMojo extends AbstractMojo {
+	
 	/**
 	 * @parameter default-value="${project}"
 	 */
@@ -34,8 +32,13 @@ public class Compile extends AbstractMojo {
 	 */
 	private String mainPackage;
 	
+	/**
+	 * @parameter expression="${coreName}" default-value="main"
+	 */
+	private String coreName;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		// TODO Auto-generated method stub
 		File f = new File ("target");
 		f.mkdir();
 		SBCLProcess process = new SBCLProcess();
@@ -43,10 +46,9 @@ public class Compile extends AbstractMojo {
 		LispCommand command = new SBCLCommand(true);
 		command.setLayout(layout);
 		command.setMainPackage(mainPackage);
+		command.setCoreName(coreName);
 		process.addCommand(command);
 		process.start();
-		
-		
 	}
 
 }
