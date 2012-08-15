@@ -16,8 +16,9 @@ import com.github.ashtonkem.configuration.StandardLayout;
 /**
  * 
  * @author ashtonkemerling
- * @phase package-sbcl
- * @goal package
+ * @goal package-sbcl
+ * @phase package
+ * @requiresProject true
  */
 public class SBCLPackagerMojo extends AbstractMojo {
 	

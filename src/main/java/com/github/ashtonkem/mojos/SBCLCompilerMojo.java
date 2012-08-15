@@ -19,7 +19,8 @@ import com.github.ashtonkem.configuration.StandardLayout;
  * 
  * @author ashtonkemerling
  * @goal compile-sbcl
- * @lifecycle compile
+ * @phase compile
+ * @requiresProject true
  */
 public class SBCLCompilerMojo extends AbstractMojo {
 
