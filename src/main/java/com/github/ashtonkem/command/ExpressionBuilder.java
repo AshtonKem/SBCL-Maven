@@ -23,6 +23,10 @@ public class ExpressionBuilder {
 			arguments.add("'" + lispPackage + "::" + value);		
 	}
 	
+	public void addArgument(String arg) {
+		arguments.add(arg);
+	}
+	
 	public void addFunction(String lispPackage, String name) {
 		if (lispPackage.equals(""))
 			arguments.add("#'" + name);
