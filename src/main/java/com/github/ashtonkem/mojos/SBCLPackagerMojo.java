@@ -46,6 +46,7 @@ public class SBCLPackagerMojo extends AbstractMojo {
 		SourceLayout layout = new StandardLayout(project);
 		LispCommand command = new SBCLCommand(true);
 		command.setLayout(layout);
+		command.silenceWarnings();
 		command.setMainPackage(mainPackage);
 		command.setCoreName(coreName);
 		process.addCommand(command);
