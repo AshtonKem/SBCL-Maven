@@ -23,11 +23,11 @@ public abstract class LispCommand implements Iterable<String> {
 	
 	public abstract void addPackage(File f);
 	
-	public abstract void addPackage(String s);
-	
 	public abstract void setLayout(SourceLayout layout);
 	
 	public abstract void setCoreName(String s);
 	
 	public abstract void setMainPackage(String s);
+	
+	public abstract void silenceWarnings();
 }
