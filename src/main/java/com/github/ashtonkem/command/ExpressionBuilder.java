@@ -43,7 +43,7 @@ public class ExpressionBuilder {
 	}
 	
 	public void addString(String string) {
-		arguments.add("\\\"" + string + "\\\"");
+		arguments.add("\"" + string + "\"");
 	}
 	
 	public String getExpression() {
