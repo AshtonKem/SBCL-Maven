@@ -23,7 +23,6 @@ public class SBCLProcess extends LispProcess {
 
 	@Override
 	protected String getExecutableName() {
-		// TODO Auto-generated method stub
 		return "sbcl";
 	}
 
