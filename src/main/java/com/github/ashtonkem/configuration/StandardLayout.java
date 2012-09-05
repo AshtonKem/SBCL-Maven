@@ -54,10 +54,10 @@ public class StandardLayout implements SourceLayout {
 		return new File(base, "target/fasl");
 	}
 	
-	private Collection<File> searchDirectory(File dir)
+	private Collection<File> searchDirectory(File dir, String suffix)
 	{
 		@SuppressWarnings("unchecked")
-		Iterator<File> iter = FileUtils.iterateFiles(dir, new String[] {"asd"}, true);
+		Iterator<File> iter = FileUtils.iterateFiles(dir, new String[] {suffix}, true);
 		Collection<File> collector = new LinkedList<File>();
 		while (iter.hasNext())
 			collector.add(iter.next());
@@ -66,9 +66,13 @@ public class StandardLayout implements SourceLayout {
 
 
 	public Collection<File> asdFiles() {
-		Collection<File> results = searchDirectory(lib());
-		results.addAll(searchDirectory(src()));
+		Collection<File> results = searchDirectory(lib(), "asd");
+		results.addAll(searchDirectory(src(), "asd"));
 		return results;
+	}
+
+	public Collection<File> faslFiles() {
+		return searchDirectory(faslDir(), "fasl");
 	}
 
 }

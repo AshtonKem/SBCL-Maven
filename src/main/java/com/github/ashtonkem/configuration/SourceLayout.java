@@ -49,5 +49,12 @@ public interface SourceLayout {
 	 * @return A collection of .asd files.
 	 */
 	public Collection<File> asdFiles();
+	
+	
+	/**
+	 * 
+	 * @return A follection of .fasl files.
+	 */
+	public Collection<File> faslFiles();
 
 }
