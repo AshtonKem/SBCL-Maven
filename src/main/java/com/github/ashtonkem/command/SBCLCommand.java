@@ -23,8 +23,10 @@ public class SBCLCommand extends LispCommand {
 		// response.
 		this.addExpression("(sb-ext:disable-debugger)");
 		this.addExpression("(require :asdf)");
+		// Helper function, to avoid repeating formats everywhere.
 		this.addExpression("(defun to-string (arg) (format nil \"~A\" arg))");
 		String asdfInit = "";
+		// Initialize ASDF so it places our fasls inside of target/fasl, as we expect.
 		asdfInit += "(funcall 'asdf::initialize-output-translations ";
 		asdfInit += "(list :output-translations :disable-cache :ignore-inherited-configuration ";
 		asdfInit += "(list (to-string *default-pathname-defaults*) (merge-pathnames \"target/fasl/**/*.*\" (to-string *default-pathname-defaults*)))))";
