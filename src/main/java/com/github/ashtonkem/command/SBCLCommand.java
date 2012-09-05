@@ -13,8 +13,10 @@ public class SBCLCommand extends LispCommand {
 
 	private boolean silenced = false;
 
-	public SBCLCommand(boolean Finalize) {
-		super(Finalize);
+	private SourceLayout layout;
+
+	public SBCLCommand(boolean Finalize, SourceLayout layout) {
+		super(Finalize, layout);
 		expressions = new LinkedList<String>();
 		// Disabling the debugger prevents the SBCL process from spewing
 		// stacktraces to STDOUT waiting for console
@@ -33,19 +35,6 @@ public class SBCLCommand extends LispCommand {
 		expressions.add(exp);
 	}
 
-	public void addPackage(File f) {
-		if (f.exists()) {
-			this.addExpression("(pushnew (truename \"" + f.getParent()
-					+ "\") asdf::*central-registry*)");
-		}
-
-	}
-
-	public void setLayout(SourceLayout s) {
-		for (File f : s.asdFiles())
-			this.addPackage(f);
-
-	}
 
 	public void setCoreName(String s) {
 		addExpression("(sb-ext:save-lisp-and-die \"target/" + s
@@ -77,4 +66,26 @@ public class SBCLCommand extends LispCommand {
 
 	}
 
+	@Override
+	public void includeFasls() {
+		for (File f : layout.faslFiles()) {
+			ExpressionBuilder builder = new ExpressionBuilder("load");
+			builder.addString(f.getPath());
+			this.addExpression(builder.getExpression());
+		}
+
+	}
+
+	@Override
+	public void includeSource() {
+		for (File f : layout.asdFiles()) {
+			this.addPackage(f);
+		}
+	}
+
+	@Override
+	public void addPackage(File f) {
+		this.addExpression("(pushnew (truename \"" + f.getParent()
+				+ "\") asdf::*central-registry*)");
+	}
 }
