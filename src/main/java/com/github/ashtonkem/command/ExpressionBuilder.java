@@ -42,6 +42,10 @@ public class ExpressionBuilder {
 		arguments.add(collector);
 	}
 	
+	public void addString(String string) {
+		arguments.add("\\\"" + string + "\\\"");
+	}
+	
 	public String getExpression() {
 		String collector = "(";
 		collector += function;
