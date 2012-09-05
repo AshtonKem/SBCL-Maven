@@ -11,8 +11,6 @@ public class SBCLCommand extends LispCommand {
 
 	private Collection<String> expressions;
 
-	private boolean silenced = false;
-
 	private SourceLayout layout;
 
 	public SBCLCommand(boolean Finalize, SourceLayout layout) {
@@ -26,7 +24,8 @@ public class SBCLCommand extends LispCommand {
 		// Helper function, to avoid repeating formats everywhere.
 		this.addExpression("(defun to-string (arg) (format nil \"~A\" arg))");
 		String asdfInit = "";
-		// Initialize ASDF so it places our fasls inside of target/fasl, as we expect.
+		// Initialize ASDF so it places our fasls inside of target/fasl, as we
+		// expect.
 		asdfInit += "(funcall 'asdf::initialize-output-translations ";
 		asdfInit += "(list :output-translations :disable-cache :ignore-inherited-configuration ";
 		asdfInit += "(list (to-string *default-pathname-defaults*) (merge-pathnames \"target/fasl/**/*.*\" (to-string *default-pathname-defaults*)))))";
@@ -37,7 +36,6 @@ public class SBCLCommand extends LispCommand {
 		expressions.add(exp);
 	}
 
-
 	public void setCoreName(String s) {
 		addExpression("(sb-ext:save-lisp-and-die \"target/" + s
 				+ ".core\" :executable t)");
@@ -45,27 +43,13 @@ public class SBCLCommand extends LispCommand {
 	}
 
 	public void setMainPackage(String s) {
-		if (silenced) {
-			ExpressionBuilder builder = new ExpressionBuilder("locally");
-			builder.addArgument("(declare (sb-ext:muffle-conditions style-warning 'sb-ext::compiler-note))");
-			builder.addArgument("(asdf:operate 'asdf:load-op :" + s
-					+ " :verbose nil)");
-			addExpression(builder.getExpression());
-		} else {
-			addExpression("(asdf:operate 'asdf:load-op :" + s
-					+ " :verbose nil)");
-		}
+
+		addExpression("(asdf:operate 'asdf:load-op :" + s + " :verbose nil)");
 
 	}
 
 	public Iterator<String> iterator() {
 		return expressions.iterator();
-	}
-
-	@Override
-	public void silenceWarnings() {
-		silenced = true;
-
 	}
 
 	@Override
