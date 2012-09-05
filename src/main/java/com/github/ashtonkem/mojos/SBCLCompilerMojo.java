@@ -41,8 +41,8 @@ public class SBCLCompilerMojo extends AbstractMojo {
 		f.mkdir();
 		SBCLProcess process = new SBCLProcess();
 		SourceLayout layout = new StandardLayout(project);
-		LispCommand command = new SBCLCommand(true);
-		command.setLayout(layout);
+		LispCommand command = new SBCLCommand(true, layout);
+		command.includeSource();
 		command.setMainPackage(mainPackage);
 		process.addCommand(command);
 		process.start();
