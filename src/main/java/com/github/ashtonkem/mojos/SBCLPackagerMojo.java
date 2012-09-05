@@ -33,7 +33,6 @@ public class SBCLPackagerMojo extends AbstractMojo {
 	private String coreName;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		// TODO Auto-generated method stub
 		File f = new File("target");
 		f.mkdir();
 		SBCLProcess process = new SBCLProcess();
