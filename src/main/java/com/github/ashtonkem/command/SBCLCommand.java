@@ -11,8 +11,6 @@ public class SBCLCommand extends LispCommand {
 
 	private Collection<String> expressions;
 
-	private SourceLayout layout;
-
 	public SBCLCommand(boolean Finalize, SourceLayout layout) {
 		super(Finalize, layout);
 		expressions = new LinkedList<String>();
@@ -43,9 +41,7 @@ public class SBCLCommand extends LispCommand {
 	}
 
 	public void setMainPackage(String s) {
-
 		addExpression("(asdf:operate 'asdf:load-op :" + s + " :verbose nil)");
-
 	}
 
 	public Iterator<String> iterator() {
