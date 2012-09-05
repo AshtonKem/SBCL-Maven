@@ -44,10 +44,9 @@ public class SBCLPackagerMojo extends AbstractMojo {
 		f.mkdir();
 		SBCLProcess process = new SBCLProcess();
 		SourceLayout layout = new StandardLayout(project);
-		LispCommand command = new SBCLCommand(true);
-		command.setLayout(layout);
-		command.silenceWarnings();
-		command.setMainPackage(mainPackage);
+		LispCommand command = new SBCLCommand(true, layout);
+		// No need to mention ASD files here, when we're loading from FASLs the system doesn't care.
+		command.includeFasls();
 		command.setCoreName(coreName);
 		process.addCommand(command);
 		process.start();
