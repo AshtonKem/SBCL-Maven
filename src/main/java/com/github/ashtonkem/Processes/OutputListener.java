@@ -6,9 +6,11 @@ import java.io.InputStreamReader;
 
 public class OutputListener implements Runnable {
 	private Process process;
+	private Boolean silent = false;
 
-	public OutputListener(Process p) {
+	public OutputListener(Process p, Boolean silent) {
 		process = p;
+		this.silent = silent;
 	}
 
 	public void run() {
@@ -20,7 +22,7 @@ public class OutputListener implements Runnable {
 			String line;
 			while (true) {
 				line = output.readLine();
-				if (line != null)
+				if (line != null && ! this.silent)
 					System.out.println(line);
 			}
 		} catch (IOException e) {

@@ -18,6 +18,7 @@ import com.github.ashtonkem.command.LispCommand;
 public abstract class LispProcess {
 	protected Process process;
 	protected BufferedWriter writer;
+	protected boolean silent = false;
 
 	protected ArrayList<LispCommand> commands = new ArrayList<LispCommand>();
 
@@ -32,7 +33,7 @@ public abstract class LispProcess {
 			process = builder.start();
 			writer = new BufferedWriter(new OutputStreamWriter(
 					process.getOutputStream()));
-			OutputListener listener = new OutputListener(process);
+			OutputListener listener = new OutputListener(process, silent);
 			new Thread(listener).start();
 			try {
 				for (LispCommand c : commands) {
@@ -73,6 +74,10 @@ public abstract class LispProcess {
 		} catch (IllegalThreadStateException e) {
 			return true;
 		}
+	}
+	
+	public void silenceOutput() {
+		silent = true;
 	}
 
 	protected abstract String getExecutableName();
