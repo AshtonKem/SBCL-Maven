@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
 import com.github.ashtonkem.Processes.SBCLProcess;
@@ -31,18 +32,26 @@ public class SBCLPackagerMojo extends AbstractMojo {
 	 * @parameter expression="${coreName}" default-value="main"
 	 */
 	private String coreName;
+	
+	/**
+	 * @parameter expression="${mainPackage}"
+	 * @required
+	 */
+	private String mainPackage;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		File f = new File("target");
-		f.mkdir();
+		Log log = this.getLog();
+		log.info("Packaging");
 		SBCLProcess process = new SBCLProcess();
 		SourceLayout layout = new StandardLayout(project);
 		LispCommand command = new SBCLCommand(true, layout);
 		// No need to mention ASD files here, when we're loading from FASLs the
 		// system doesn't care.
-		command.includeFasls();
+		command.includeSource();
+		command.setMainPackage(mainPackage);
 		command.setCoreName(coreName);
 		process.addCommand(command);
+		process.silenceOutput();
 		process.start();
 	}
 
